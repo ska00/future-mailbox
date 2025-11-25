@@ -1,0 +1,15 @@
+[remap]
+
+importer="import_gif_to_sprite_frames"
+type="SpriteFrames"
+uid="uid://1gsa7xxj4t32"
+path="res://.godot/imported/icons8-clock.gif-53e5995839e4c467f7eee323674acefb.tres"
+
+[deps]
+
+source_file="res://icons8-clock.gif"
+dest_files=["res://.godot/imported/icons8-clock.gif-53e5995839e4c467f7eee323674acefb.tres"]
+
+[params]
+
+frames_per_second=30

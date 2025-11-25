@@ -1,4 +1,6 @@
 extends Button
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var lock_window: Window = $"../CanvasLayer/LockWindow"
 
 @onready var file_dialog: FileDialog = %FileDialog
 @onready var file_path_l: RichTextLabel = $FilePathL
@@ -7,7 +9,8 @@ extends Button
 var file_selected_path = null
 
 func _ready():
-	pass
+	lock_btn.visible = false
+	
 
 func _on_file_dialog_file_selected(path: String):
 	print("Selected file:", path)
@@ -34,7 +37,8 @@ func copy_file_to_library(source_path: String):
 	
 	# Copy the file
 	if copy_file(source_path, destination):
-		print("Writing to:", ProjectSettings.globalize_path("user://library/"))
+		print("Copy Successful, wrote to:", ProjectSettings.globalize_path("user://library/"))
+		lock_window.queue_free()
 	else:
 		print("Copy failed")
 
@@ -51,6 +55,7 @@ func copy_file(source_path: String, destination_path: String) -> bool:
 
 	# Copy contents
 	dst.store_buffer(src.get_buffer(src.get_length()))
+	
 	src.close()
 	dst.close()
 	
@@ -61,6 +66,7 @@ func _on_pressed() -> void:
 	file_dialog.popup_centered()
 	disabled = true
 	lock_btn.visible = false
+	audio_player.play()
 
 func _on_file_dialog_canceled() -> void:
 	disabled = false
@@ -72,5 +78,7 @@ func _on_file_dialog_canceled() -> void:
 
 func _on_lock_btn_pressed() -> void:
 	if file_selected_path:
+		lock_window.popup_centered()
 		copy_file_to_library(file_selected_path)
+	
 	# Transition to lock state

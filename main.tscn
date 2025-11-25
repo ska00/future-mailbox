@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhqj7m30rgxue"]
+[gd_scene load_steps=13 format=3 uid="uid://bhqj7m30rgxue"]
 
 [ext_resource type="Script" uid="uid://b3y1nlahcr6ti" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="SystemFont" uid="uid://d12m2ku4rafy7" path="res://main_font.tres" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://njh81gydvmci" path="res://slider.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://uuegq1shspsj" path="res://file_selector.gd" id="3_h2yge"]
+[ext_resource type="AudioStream" uid="uid://cut4ogn2f28bd" path="res://Abstract1.wav" id="4_lquwl"]
+[ext_resource type="AudioStream" uid="uid://dj50rsvpkw7di" path="res://Minimalist11.wav" id="6_7mycd"]
 
 [sub_resource type="SystemFont" id="SystemFont_1bvp3"]
 font_names = PackedStringArray("Britannic")
@@ -16,6 +18,43 @@ font_italic = true
 [sub_resource type="SystemFont" id="SystemFont_7mycd"]
 font_names = PackedStringArray("Segoe UI")
 font_italic = true
+
+[sub_resource type="Animation" id="Animation_7mycd"]
+resource_name = "sending"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["Sending", "Sending.", "Sending..", "Sending..."]
+}
+
+[sub_resource type="Animation" id="Animation_272bh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Sending"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5vw27"]
+_data = {
+&"RESET": SubResource("Animation_272bh"),
+&"sending": SubResource("Animation_7mycd")
+}
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -44,10 +83,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -179.5
-offset_top = -112.0
-offset_right = 179.5
-offset_bottom = -43.0
+offset_left = -179.0
+offset_top = -155.0
+offset_right = 180.0
+offset_bottom = -86.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("2_0xm2m")
@@ -69,9 +108,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -97.5
-offset_right = 97.5
-offset_bottom = 70.0
+offset_left = -128.0
+offset_top = -43.0
+offset_right = 129.0
+offset_bottom = 27.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 20
@@ -110,6 +150,10 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Selection/MonthSlider"]
+stream = ExtResource("4_lquwl")
+bus = &"sfx"
+
 [node name="YearsL" type="Label" parent="Selection"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_0xm2m")
@@ -142,6 +186,10 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Selection/YearSlider"]
+stream = ExtResource("4_lquwl")
+bus = &"sfx"
+
 [node name="FileBtn" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -149,10 +197,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -63.0
-offset_top = -180.0
-offset_right = 63.0
-offset_bottom = -149.0
+offset_left = -62.5
+offset_top = -223.0
+offset_right = 63.5
+offset_bottom = -192.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_0xm2m")
@@ -168,9 +216,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -217.0
-offset_top = 19.0
+offset_top = 13.0
 offset_right = 215.0
-offset_bottom = 77.0
+offset_bottom = 71.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
@@ -183,22 +231,25 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LockBtn" type="Button" parent="FileBtn"]
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = 67.0
-offset_right = 8.0
-offset_bottom = 98.0
+offset_left = -35.0
+offset_top = 82.0
+offset_right = 34.0
+offset_bottom = 117.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_0xm2m")
 theme_override_font_sizes/font_size = 26
 text = "SEND"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="FileBtn"]
+stream = ExtResource("6_7mycd")
+bus = &"sfx"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -209,6 +260,67 @@ title = "Open a File"
 file_mode = 0
 access = 2
 use_native_dialog = true
+
+[node name="LockWindow" type="Window" parent="CanvasLayer"]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(300, 100)
+visible = false
+
+[node name="Main" type="Control" parent="CanvasLayer/LockWindow"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BgColor" type="ColorRect" parent="CanvasLayer/LockWindow/Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12941177, 0.14901961, 0.18039216, 1)
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/LockWindow/Main"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/LockWindow/Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -11.5
+offset_right = 32.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_0xm2m")
+theme_override_font_sizes/font_size = 20
+text = "Sending"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/LockWindow/Main/Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_5vw27")
+}
+autoplay = "sending"
 
 [connection signal="value_changed" from="Selection/MonthSlider" to="Selection/MonthSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="Selection/YearSlider" to="Selection/YearSlider" method="_on_value_changed"]
