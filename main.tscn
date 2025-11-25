@@ -19,6 +19,21 @@ font_italic = true
 font_names = PackedStringArray("Segoe UI")
 font_italic = true
 
+[sub_resource type="Animation" id="Animation_272bh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Sending"]
+}
+
 [sub_resource type="Animation" id="Animation_7mycd"]
 resource_name = "sending"
 loop_mode = 1
@@ -33,21 +48,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": ["Sending", "Sending.", "Sending..", "Sending..."]
-}
-
-[sub_resource type="Animation" id="Animation_272bh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["Sending"]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5vw27"]
@@ -325,6 +325,7 @@ autoplay = "sending"
 [connection signal="value_changed" from="Selection/MonthSlider" to="Selection/MonthSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="Selection/YearSlider" to="Selection/YearSlider" method="_on_value_changed"]
 [connection signal="pressed" from="FileBtn" to="FileBtn" method="_on_pressed"]
+[connection signal="sent" from="FileBtn" to="." method="_on_file_btn_sent"]
 [connection signal="pressed" from="FileBtn/LockBtn" to="FileBtn" method="_on_lock_btn_pressed"]
 [connection signal="canceled" from="CanvasLayer/FileDialog" to="FileBtn" method="_on_file_dialog_canceled"]
 [connection signal="file_selected" from="CanvasLayer/FileDialog" to="FileBtn" method="_on_file_dialog_file_selected"]

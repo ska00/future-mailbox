@@ -4,10 +4,12 @@ const save_location = "user://SaveFile.json"
 
 var contents_to_save: Dictionary = {
 	"lock_state":false,
-	"open_date": {"year":1, "month":1, "day":1}
+	"open_date": {"year":1, "month":1, "day":1},
+	"time_gap": {"months": 0, "years": 0}
 }
 
 func _ready():
+	save_file()
 	load_file()
 
 func save_file():
@@ -22,6 +24,5 @@ func load_file():
 		file.close()
 		
 		for keys in contents_to_save.keys():
-			print(keys)
 			contents_to_save[keys] = data[keys]
 	

@@ -8,6 +8,8 @@ extends Button
 
 var file_selected_path = null
 
+signal sent
+
 func _ready():
 	lock_btn.visible = false
 	
@@ -78,7 +80,9 @@ func _on_file_dialog_canceled() -> void:
 
 func _on_lock_btn_pressed() -> void:
 	if file_selected_path:
+		audio_player.play()
 		lock_window.popup_centered()
 		copy_file_to_library(file_selected_path)
+		sent.emit()
 	
 	# Transition to lock state

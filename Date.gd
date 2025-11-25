@@ -48,6 +48,21 @@ func _to_string() -> String:
 	else:
 		string = string + str(day)
 	return string
+	
+func get_time_gap(other:Dictionary = Time.get_date_dict_from_system()):
+	var time_gap = {"years": 0, "months":0}
+	
+	var years_passed = year - other.year
+	var months_passed = month - other.month
+	
+	if months_passed < 0:
+		months_passed = (months_passed) + 12
+		years_passed = years_passed - 1
+	
+	time_gap.years = years_passed
+	time_gap.months = months_passed
+	
+	return time_gap
 
 func get_dict() -> Dictionary:
 	return {"day": day, "month": month, "year":year}
@@ -63,6 +78,7 @@ func has_passed():
 	return true
 
 func add_months(delta):
+	delta = int(delta)
 	if delta < 0:
 		push_error("Trying to subtract months")
 	var new_month = month + delta
