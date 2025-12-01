@@ -1,0 +1,144 @@
+[gd_scene load_steps=7 format=3 uid="uid://b50keqkt0pp2l"]
+
+[ext_resource type="Script" uid="uid://cfsddyghv7nv" path="res://scripts/safehold.gd" id="1_fxcw7"]
+[ext_resource type="Texture2D" uid="uid://bkt7weadib0wc" path="res://sprites/icons8-lock.svg" id="2_7l225"]
+[ext_resource type="AudioStream" uid="uid://dj50rsvpkw7di" path="res://sounds/sfx_lockbtns.wav" id="2_fdbtu"]
+[ext_resource type="SystemFont" uid="uid://d12m2ku4rafy7" path="res://main_font.tres" id="3_fdbtu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k7gw"]
+bg_color = Color(0.12941177, 0.14901961, 0.18039216, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="SystemFont" id="SystemFont_1nvde"]
+font_names = PackedStringArray("Britannic")
+font_weight = 600
+
+[node name="Safehold" type="Control" unique_id=185062946]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fxcw7")
+
+[node name="BgColor" type="ColorRect" parent="." unique_id=1349136964]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21176471, 0.23921569, 0.2901961, 1)
+
+[node name="AudioBtn" type="AudioStreamPlayer" parent="." unique_id=1921742410]
+stream = ExtResource("2_fdbtu")
+bus = &"sfx"
+
+[node name="LockSpr" type="Sprite2D" parent="." unique_id=1746698971]
+position = Vector2(300, 180)
+texture = ExtResource("2_7l225")
+
+[node name="UnlockState" type="Control" parent="." unique_id=338333232]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UnlockBlock" type="ColorRect" parent="UnlockState" unique_id=433743841]
+layout_mode = 0
+offset_left = 332.0
+offset_top = 114.0
+offset_right = 372.0
+offset_bottom = 154.0
+color = Color(0.21176471, 0.23921569, 0.2901961, 1)
+
+[node name="UnlockBtn" type="Button" parent="UnlockState" unique_id=277426407]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = 47.0
+offset_right = 144.0
+offset_bottom = 148.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_fdbtu")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_8k7gw")
+text = "Open Letter"
+
+[node name="LockState" type="Control" parent="." unique_id=1879942364]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="RichTextLabel" parent="LockState" unique_id=1708823882]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -179.0
+offset_top = 55.0
+offset_right = 180.0
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_fdbtu")
+theme_override_fonts/italics_font = SubResource("SystemFont_1nvde")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+bbcode_enabled = true
+text = "Recieving letter in o months and 0 years"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="LockState" unique_id=741621013]
+custom_minimum_size = Vector2(280, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = 161.5
+offset_right = 140.0
+offset_bottom = 211.5
+grow_horizontal = 2
+grow_vertical = 2
+value = 0.01
+show_percentage = false
+
+[node name="Button" type="Button" parent="." unique_id=839060814]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -70.0
+offset_top = 16.0
+offset_right = -19.0
+offset_bottom = 47.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("3_fdbtu")
+text = "Reset"
+
+[connection signal="pressed" from="UnlockState/UnlockBtn" to="." method="_on_unlock_btn_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

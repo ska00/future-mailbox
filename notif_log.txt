@@ -1,0 +1,5 @@
+2025-12-01T11:39:52.813162: Script started
+2025-12-01T11:39:52.820708: Condition override: always true for testing
+2025-12-01T11:39:52.894899: Notification sent successfully
+2025-12-01T11:39:52.895472: Updated last_notify.txt
+2025-12-01T11:39:52.895650: Script finished

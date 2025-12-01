@@ -1,0 +1,233 @@
+[gd_scene load_steps=10 format=3 uid="uid://bhqj7m30rgxue"]
+
+[ext_resource type="Script" uid="uid://b3y1nlahcr6ti" path="res://scripts/start.gd" id="1_y16t7"]
+[ext_resource type="SystemFont" uid="uid://d12m2ku4rafy7" path="res://main_font.tres" id="2_4ge6i"]
+[ext_resource type="Script" uid="uid://njh81gydvmci" path="res://scripts/slider.gd" id="3_8itgj"]
+[ext_resource type="AudioStream" uid="uid://cut4ogn2f28bd" path="res://sounds/sfx_slider.wav" id="4_tn317"]
+[ext_resource type="Script" uid="uid://uuegq1shspsj" path="res://scripts/file_selector.gd" id="5_m8nf6"]
+[ext_resource type="AudioStream" uid="uid://dj50rsvpkw7di" path="res://sounds/sfx_lockbtns.wav" id="6_pgjjs"]
+
+[sub_resource type="SystemFont" id="SystemFont_1bvp3"]
+font_names = PackedStringArray("Britannic")
+font_weight = 600
+
+[sub_resource type="SystemFont" id="SystemFont_lquwl"]
+font_names = PackedStringArray("Segoe UI")
+font_italic = true
+
+[sub_resource type="SystemFont" id="SystemFont_7mycd"]
+font_names = PackedStringArray("Segoe UI")
+font_italic = true
+
+[node name="Start" type="Control" unique_id=1521252037]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y16t7")
+Months = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="BgColor" type="ColorRect" parent="." unique_id=1121877230]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12941177, 0.14901961, 0.18039216, 1)
+
+[node name="Question" type="RichTextLabel" parent="." unique_id=827109890]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -179.0
+offset_top = -155.0
+offset_right = 180.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_4ge6i")
+theme_override_fonts/italics_font = SubResource("SystemFont_1bvp3")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+bbcode_enabled = true
+text = "[u]When[/u] would you like to mail this letter to?"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Selection" type="GridContainer" parent="." unique_id=1371947072]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -43.0
+offset_right = 129.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="MonthsL" type="Label" parent="Selection" unique_id=1938229050]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_4ge6i")
+theme_override_font_sizes/font_size = 24
+text = "Months"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MonthSlider" type="HSlider" parent="Selection" unique_id=580714580]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 2
+max_value = 11.0
+tick_count = 12
+ticks_on_borders = true
+script = ExtResource("3_8itgj")
+
+[node name="NumL" type="Label" parent="Selection/MonthSlider" unique_id=1229444760]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -36.0
+offset_right = 19.0
+offset_bottom = -13.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_4ge6i")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Selection/MonthSlider" unique_id=599443658]
+stream = ExtResource("4_tn317")
+bus = &"sfx"
+
+[node name="YearsL" type="Label" parent="Selection" unique_id=1086011598]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_4ge6i")
+theme_override_font_sizes/font_size = 24
+text = "Years"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="YearSlider" type="HSlider" parent="Selection" unique_id=866651506]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 2
+max_value = 10.0
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("3_8itgj")
+
+[node name="NumL" type="Label" parent="Selection/YearSlider" unique_id=2101233734]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -36.0
+offset_right = 19.0
+offset_bottom = -13.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_4ge6i")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Selection/YearSlider" unique_id=1306590641]
+stream = ExtResource("4_tn317")
+bus = &"sfx"
+
+[node name="FileBtn" type="Button" parent="." unique_id=222449351]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -62.5
+offset_top = -223.0
+offset_right = 63.5
+offset_bottom = -192.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_4ge6i")
+theme_override_font_sizes/font_size = 22
+text = "Select File..."
+script = ExtResource("5_m8nf6")
+
+[node name="FilePathL" type="RichTextLabel" parent="FileBtn" unique_id=477593231]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -217.0
+offset_top = 13.0
+offset_right = 215.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_lquwl")
+theme_override_fonts/italics_font = SubResource("SystemFont_7mycd")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SendBtn" type="Button" parent="FileBtn" unique_id=1714665455]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = 82.0
+offset_right = 34.0
+offset_bottom = 117.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_4ge6i")
+theme_override_font_sizes/font_size = 26
+text = "SEND"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="FileBtn" unique_id=1043291295]
+stream = ExtResource("6_pgjjs")
+bus = &"sfx"
+
+[node name="PopupLayer" type="CanvasLayer" parent="." unique_id=1710946424]
+
+[node name="FileDialog" type="FileDialog" parent="PopupLayer" unique_id=598848706]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[connection signal="value_changed" from="Selection/MonthSlider" to="Selection/MonthSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="Selection/YearSlider" to="Selection/YearSlider" method="_on_value_changed"]
+[connection signal="pressed" from="FileBtn" to="FileBtn" method="_on_pressed"]
+[connection signal="canceled" from="PopupLayer/FileDialog" to="FileBtn" method="_on_file_dialog_canceled"]
+[connection signal="file_selected" from="PopupLayer/FileDialog" to="FileBtn" method="_on_file_dialog_file_selected"]

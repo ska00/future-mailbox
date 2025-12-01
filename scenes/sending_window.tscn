@@ -1,0 +1,101 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1hwex42d0fm8"]
+
+[ext_resource type="SystemFont" uid="uid://d12m2ku4rafy7" path="res://main_font.tres" id="1_yfe7n"]
+
+[sub_resource type="Animation" id="Animation_272bh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Sending"]
+}
+
+[sub_resource type="Animation" id="Animation_7mycd"]
+resource_name = "sending"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["Sending", "Sending.", "Sending..", "Sending..."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5vw27"]
+_data = {
+&"RESET": SubResource("Animation_272bh"),
+&"sending": SubResource("Animation_7mycd")
+}
+
+[node name="LockWindow" type="Window"]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(300, 100)
+visible = false
+
+[node name="Main" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BgColor" type="ColorRect" parent="Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12941177, 0.14901961, 0.18039216, 1)
+
+[node name="ProgressBar" type="ProgressBar" parent="Main"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -11.5
+offset_right = 32.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_yfe7n")
+theme_override_font_sizes/font_size = 20
+text = "Sending"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Main/Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_5vw27")
+}
+autoplay = "sending"

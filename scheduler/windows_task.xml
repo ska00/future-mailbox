@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<Task xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task" version="1.2">
+
+  <RegistrationInfo>
+	<Date>2025-11-29T00:00:00</Date>
+	<Author>LetterOpener</Author>
+	<Description>Daily Godot notification task</Description>
+  </RegistrationInfo>
+
+  <Principals>
+	<Principal id="Author">
+	  <LogonType>InteractiveToken</LogonType>
+	  <RunLevel>LeastPrivilege</RunLevel>
+	</Principal>
+  </Principals>
+
+  <Settings>
+	<MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+	<DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+	<StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+	<StartWhenAvailable>true</StartWhenAvailable>
+	<AllowHardTerminate>true</AllowHardTerminate>
+
+	<RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>
+	<IdleSettings>
+	  <StopOnIdleEnd>false</StopOnIdleEnd>
+	  <RestartOnIdle>false</RestartOnIdle>
+	</IdleSettings>
+	<AllowStartOnDemand>true</AllowStartOnDemand>
+	<Enabled>true</Enabled>
+	<Hidden>false</Hidden>
+	<RunOnlyIfIdle>false</RunOnlyIfIdle>
+	<WakeToRun>false</WakeToRun>
+	<ExecutionTimeLimit>PT1H</ExecutionTimeLimit>
+	<Priority>7</Priority>
+  </Settings>
+
+  <Triggers>
+	<CalendarTrigger>
+	  <StartBoundary>2025-11-29T22:36:00</StartBoundary>
+	  <Enabled>true</Enabled>
+	  <ScheduleByDay>
+		<DaysInterval>1</DaysInterval>
+	  </ScheduleByDay>
+	</CalendarTrigger>
+  </Triggers>
+
+  <Actions Context="Author">
+	<Exec>
+	  <Command>__EXE_PATH__</Command>
+	  <Arguments>__ARG_PATH__</Arguments>
+	  <WorkingDirectory>__DIRECTORY_PATH__</WorkingDirectory>
+	</Exec>
+  </Actions>
+
+</Task>

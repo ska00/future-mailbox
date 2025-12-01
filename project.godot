@@ -12,12 +12,17 @@ config_version=5
 
 config/name="Letter Opener"
 run/main_scene="uid://bhqj7m30rgxue"
-config/features=PackedStringArray("4.5", "Mobile")
-config/icon="res://icon.svg"
+config/features=PackedStringArray("4.6", "Mobile")
+config/icon="res://sprites/icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://sounds/default_bus_layout.tres"
 
 [autoload]
 
-SaveLoad="*res://SaveLoad.gd"
+SaveFile="*res://scripts/classes/SaveFile.gd"
+WindowsScheduler="*uid://cbm7x0ly4ldtr"
 
 [display]
 
