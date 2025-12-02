@@ -1,11 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhqj7m30rgxue"]
+[gd_scene load_steps=14 format=3 uid="uid://bhqj7m30rgxue"]
 
 [ext_resource type="Script" uid="uid://b3y1nlahcr6ti" path="res://scripts/start.gd" id="1_y16t7"]
 [ext_resource type="SystemFont" uid="uid://d12m2ku4rafy7" path="res://main_font.tres" id="2_4ge6i"]
 [ext_resource type="Script" uid="uid://njh81gydvmci" path="res://scripts/slider.gd" id="3_8itgj"]
 [ext_resource type="AudioStream" uid="uid://cut4ogn2f28bd" path="res://sounds/sfx_slider.wav" id="4_tn317"]
+[ext_resource type="Texture2D" uid="uid://c4o22hxgk2b7f" path="res://sprites/ui_sprite.png" id="5_4ge6i"]
 [ext_resource type="Script" uid="uid://uuegq1shspsj" path="res://scripts/file_selector.gd" id="5_m8nf6"]
+[ext_resource type="StyleBox" uid="uid://bt1brg7jes1rm" path="res://button.tres" id="6_8itgj"]
 [ext_resource type="AudioStream" uid="uid://dj50rsvpkw7di" path="res://sounds/sfx_lockbtns.wav" id="6_pgjjs"]
+[ext_resource type="StyleBox" uid="uid://bcx2bg5g23ohj" path="res://button_hover.tres" id="7_tn317"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tn317"]
+atlas = ExtResource("5_4ge6i")
+region = Rect2(13, 11, 64, 64)
 
 [sub_resource type="SystemFont" id="SystemFont_1bvp3"]
 font_names = PackedStringArray("Britannic")
@@ -37,7 +44,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.12941177, 0.14901961, 0.18039216, 1)
+color = Color(0.2901961, 0.4392157, 0.6627451, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1881995648]
+visible = false
+layout_mode = 0
+offset_left = 149.0
+offset_top = 173.0
+offset_right = 453.0
+offset_bottom = 299.0
+texture = SubResource("AtlasTexture_tn317")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="Question" type="RichTextLabel" parent="." unique_id=827109890]
 layout_mode = 1
@@ -47,9 +70,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -179.0
-offset_top = -155.0
+offset_top = -208.0
 offset_right = 180.0
-offset_bottom = -86.0
+offset_bottom = -139.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("2_4ge6i")
@@ -72,9 +95,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -128.0
-offset_top = -43.0
+offset_top = -96.0
 offset_right = 129.0
-offset_bottom = 27.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 20
@@ -155,6 +178,10 @@ vertical_alignment = 1
 stream = ExtResource("4_tn317")
 bus = &"sfx"
 
+[node name="UiSprite" type="Sprite2D" parent="Selection" unique_id=980836554]
+position = Vector2(-572, 185)
+texture = ExtResource("5_4ge6i")
+
 [node name="FileBtn" type="Button" parent="." unique_id=222449351]
 layout_mode = 1
 anchors_preset = 7
@@ -162,14 +189,25 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -62.5
-offset_top = -223.0
-offset_right = 63.5
-offset_bottom = -192.0
+offset_left = -93.0
+offset_top = -276.0
+offset_right = 101.28262
+offset_bottom = -222.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.5176471)
 theme_override_fonts/font = ExtResource("2_4ge6i")
 theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = ExtResource("7_tn317")
+theme_override_styles/pressed = ExtResource("7_tn317")
+theme_override_styles/hover = ExtResource("6_8itgj")
+theme_override_styles/disabled = ExtResource("6_8itgj")
+theme_override_styles/focus = ExtResource("7_tn317")
 text = "Select File..."
 script = ExtResource("5_m8nf6")
 
@@ -195,26 +233,55 @@ autowrap_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SendBtn" type="Button" parent="FileBtn" unique_id=1714665455]
+[node name="SendBtn" type="Button" parent="FileBtn" unique_id=841050992]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -35.0
+offset_left = -82.14131
+offset_top = 75.0
+offset_right = 79.85869
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("2_4ge6i")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = ExtResource("7_tn317")
+theme_override_styles/pressed = ExtResource("7_tn317")
+theme_override_styles/hover = ExtResource("6_8itgj")
+theme_override_styles/disabled = ExtResource("6_8itgj")
+theme_override_styles/focus = ExtResource("7_tn317")
+text = "SEND"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="FileBtn" unique_id=1043291295]
+stream = ExtResource("6_pgjjs")
+bus = &"sfx"
+
+[node name="old_SendBtn" type="Button" parent="FileBtn" unique_id=1714665455]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.000015
 offset_top = 82.0
-offset_right = 34.0
+offset_right = 33.999985
 offset_bottom = 117.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_4ge6i")
 theme_override_font_sizes/font_size = 26
 text = "SEND"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="FileBtn" unique_id=1043291295]
-stream = ExtResource("6_pgjjs")
-bus = &"sfx"
 
 [node name="PopupLayer" type="CanvasLayer" parent="." unique_id=1710946424]
 
