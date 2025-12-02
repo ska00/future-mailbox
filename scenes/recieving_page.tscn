@@ -1,0 +1,222 @@
+[gd_scene load_steps=16 format=3 uid="uid://b50keqkt0pp2l"]
+
+[ext_resource type="Script" uid="uid://cfsddyghv7nv" path="res://scripts/recieving_page.gd" id="1_2y0cr"]
+[ext_resource type="AudioStream" uid="uid://dj50rsvpkw7di" path="res://sounds/sfx_lockbtns.wav" id="2_68ldb"]
+[ext_resource type="SystemFont" uid="uid://d12m2ku4rafy7" path="res://fonts/fnt_britannic_bold.tres" id="3_b75eb"]
+[ext_resource type="FontFile" uid="uid://cbf6f5iodcwr2" path="res://fonts/fnt_pixellari.ttf" id="4_ka71t"]
+[ext_resource type="Texture2D" uid="uid://bf88l6slo1qmx" path="res://sprites/spr_mailbox_closed.png" id="5_cx2kd"]
+[ext_resource type="Texture2D" uid="uid://cgpu72rdggrm0" path="res://sprites/spr_btn_red.png" id="6_hwo6i"]
+[ext_resource type="Texture2D" uid="uid://bgtfufhop5a4c" path="res://sprites/spr_btn_red_hover.png" id="7_183xb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdbtu"]
+bg_color = Color(0.56078434, 0.67058825, 0.83137256, 1)
+border_width_bottom = 8
+border_color = Color(0.2901961, 0.4392157, 0.6627451, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y7wjr"]
+texture = ExtResource("6_hwo6i")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ow40b"]
+texture = ExtResource("7_183xb")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sth28"]
+texture = ExtResource("7_183xb")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k7gw"]
+bg_color = Color(0.12941177, 0.14901961, 0.18039216, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="SystemFont" id="SystemFont_1nvde"]
+font_names = PackedStringArray("Britannic")
+font_weight = 600
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yh1xx"]
+bg_color = Color(0, 0, 0, 0.46666667)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.023529412, 0.007843138, 0, 0)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ybm3"]
+bg_color = Color(0.9372549, 0.9254902, 0.8901961, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.023529412, 0.007843138, 0, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="RecievingPage" type="Control" unique_id=185062946]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2y0cr")
+
+[node name="BgColor" type="ColorRect" parent="." unique_id=1349136964]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2901961, 0.4392157, 0.6627451, 1)
+
+[node name="TopPanel" type="Panel" parent="." unique_id=1467168856]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 217.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fdbtu")
+
+[node name="ResetBtn" type="Button" parent="." unique_id=839060814]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -68.0
+offset_top = 12.0
+offset_right = -11.0
+offset_bottom = 41.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.023529412, 0.007843138, 0, 1)
+theme_override_fonts/font = ExtResource("4_ka71t")
+theme_override_styles/normal = SubResource("StyleBoxTexture_y7wjr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ow40b")
+theme_override_styles/hover = SubResource("StyleBoxTexture_sth28")
+text = "Reset"
+
+[node name="AudioBtn" type="AudioStreamPlayer" parent="." unique_id=1921742410]
+stream = ExtResource("2_68ldb")
+bus = &"sfx"
+
+[node name="UnlockState" type="Control" parent="." unique_id=338333232]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UnlockBtn" type="Button" parent="UnlockState" unique_id=277426407]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = 47.0
+offset_right = 144.0
+offset_bottom = 148.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_b75eb")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_8k7gw")
+text = "Open Letter"
+
+[node name="LockState" type="Control" parent="." unique_id=1879942364]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="RichTextLabel" parent="LockState" unique_id=1708823882]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.0
+offset_top = -255.0
+offset_right = 240.0
+offset_bottom = -167.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.9254902, 0.92156863, 0.90588236, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("4_ka71t")
+theme_override_fonts/italics_font = SubResource("SystemFont_1nvde")
+theme_override_font_sizes/normal_font_size = 44
+theme_override_font_sizes/italics_font_size = 32
+bbcode_enabled = true
+text = "Recieving letter in [color=\"#fffc40\"]0 months[/color] and [color=#fffc40]0 years [/color]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mailbox" type="Control" parent="LockState" unique_id=173656056]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Sprite" type="Sprite2D" parent="LockState/Mailbox" unique_id=201385159]
+texture = ExtResource("5_cx2kd")
+offset = Vector2(10, -240)
+
+[node name="ProgressBar" type="ProgressBar" parent="LockState" unique_id=741621013]
+custom_minimum_size = Vector2(280, 25)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -149.0
+offset_right = 243.0
+offset_bottom = -122.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_yh1xx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5ybm3")
+show_percentage = false
+
+[connection signal="pressed" from="ResetBtn" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UnlockState/UnlockBtn" to="." method="_on_unlock_btn_pressed"]

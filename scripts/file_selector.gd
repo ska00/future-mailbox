@@ -1,10 +1,10 @@
-extends Button
+extends TweenButton
 
-@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var audio_player: AudioStreamPlayer = %AudioPlayer
 
 @onready var file_dialog: FileDialog = %FileDialog
-@onready var file_path_label: RichTextLabel = $FilePathL
-@onready var send_btn: Button = $SendBtn
+@onready var file_path_label: RichTextLabel = %FilePathL
+@onready var send_btn: Button = %SendBtn
 
 var file_selected_path = null
 
@@ -12,6 +12,7 @@ signal send
 
 
 func _ready():
+	super._ready()
 	send_btn.hide()
 	# Connect signal
 	send_btn.connect("pressed", _on_send_btn_pressed)

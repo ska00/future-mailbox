@@ -47,7 +47,7 @@
 
   <Actions Context="Author">
 	<Exec>
-	  <Command>__EXE_PATH__</Command>
+	  <Command>__COMMAND_PATH__</Command>
 	  <Arguments>__ARG_PATH__</Arguments>
 	  <WorkingDirectory>__DIRECTORY_PATH__</WorkingDirectory>
 	</Exec>

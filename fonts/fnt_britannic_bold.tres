@@ -1,0 +1,5 @@
+[gd_resource type="SystemFont" format=3 uid="uid://d12m2ku4rafy7"]
+
+[resource]
+font_names = PackedStringArray("Britannic")
+font_weight = 450
