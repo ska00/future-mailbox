@@ -105,35 +105,34 @@ def update_savefile():
             contents = json.load(f)
 
         send_date = contents.get("send_date")
+        timespan = contents.get("chosen_timespan")
+        today = datetime.datetime.now()
 
         send_datetime = datetime.datetime(
-            send_date["year"], send_date["month"], send_date["day"]
-        )
-
-        timespan = contents.get("chosen_timespan")
-
+                        send_date["year"], send_date["month"], send_date["day"])
         recieve_datetime = send_datetime + relativedelta(
-            months=timespan["months"], years=timespan["years"])
+                        years=timespan["years"], months=timespan["months"], days=timespan["days"])
 
         recieve_date = {
         "year" : recieve_datetime.year, 
         "month": recieve_datetime.month,
-        "day": recieve_datetime.day}
+        "day": recieve_datetime.day }
 
-        today = datetime.datetime.now() 
         delivered = today > recieve_datetime
-
         timeto_delivery = relativedelta(recieve_datetime, today)
 
         contents["delivered"] = delivered
         contents["recieve_date"] = recieve_date
-        contents["timeto_delivery"] = {"months":0, "years":0} if delivered else {
-            "months":timeto_delivery.months, "years": timeto_delivery.years}
 
-        log(f"Savefile updated successfully {today.isoformat()}")
+        if delivered:
+            contents["timeto_delivery"] = {"years":0, "months":0, "days":0 } 
+        else:
+            contents["timeto_delivery"] = {"years":timeto_delivery.years, "months":timeto_delivery.months, "days":timeto_delivery.days} 
 
         with open(SAVE_FILE, "w") as f:
             json.dump(contents, f)
+
+        log(f"Savefile updated successfully {today.isoformat()}")
         
 
     except Exception as e:

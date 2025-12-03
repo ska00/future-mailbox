@@ -17,8 +17,8 @@ const DEFAULT_CONTENTS : Dictionary = {
 	"letter_path" : "",
 	"send_date" : {"year": 0, "month": 0, "day": 0},
 	"recieve_date" : {"year": 0, "month": 0, "day": 0},
-	"chosen_timespan" : {"months": 0, "years": 0},
-	"timeto_delivery" : {"months": 0, "years": 0},
+	"chosen_timespan" : {"years": 0, "months": 0, "days" : 0},
+	"timeto_delivery" : {"years": 0, "months": 0, "days" : 0},
 	"delivered": false }
 
 
