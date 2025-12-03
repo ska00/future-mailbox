@@ -27,9 +27,10 @@ func next_scene():
 	get_tree().change_scene_to_file(next_scene_file)
 
 
-func _on_copied_file() -> void:
+func _on_copied_file(letter_path : String) -> void:
 	SaveFile.load_file()
 	SaveFile.contents["sending"] = true
+	SaveFile.contents["letter_path"] = letter_path
 	SaveFile.contents["send_date"] = Time.get_date_dict_from_system()
 	SaveFile.contents["chosen_timespan"]["months"] = int(month_slider.value)
 	SaveFile.contents["chosen_timespan"]["years"] = int(year_slider.value)
@@ -47,4 +48,4 @@ func _on_copied_file() -> void:
 
 
 func _on_debug_btn_pressed() -> void:
-	_on_copied_file()
+	_on_copied_file("")

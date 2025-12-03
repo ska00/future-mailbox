@@ -7,7 +7,7 @@ extends TweenButton
 
 var file_path = null
 
-signal copied_file
+signal copied_file(letter_path)
 
 
 func _ready():
@@ -42,7 +42,7 @@ func _on_send_btn_pressed() -> void:
 	if file_path:		
 		audio_player.play()
 		if copy_file_to_library(file_path):
-			copied_file.emit()
+			copied_file.emit(file_path)
 		
 	else:
 		push_error("no file selected to send")

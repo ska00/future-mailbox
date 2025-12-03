@@ -14,6 +14,7 @@ extends Node
 const DEFAULT_CONTENTS : Dictionary = {
 	"sending" : false,
 	"is_notifying": false,
+	"letter_path" : "",
 	"send_date" : {"year": 0, "month": 0, "day": 0},
 	"recieve_date" : {"year": 0, "month": 0, "day": 0},
 	"chosen_timespan" : {"months": 0, "years": 0},

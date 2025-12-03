@@ -1,16 +1,25 @@
 extends Control
 
-@onready var progress_bar: ProgressBar = $LockState/ProgressBar
-@onready var title: RichTextLabel = $LockState/Title
+@onready var reset_scene = "res://scenes/start.tscn"
 
 @onready var lock_state: Control = $LockState
 @onready var unlock_state: Control = $UnlockState
 
-var years_left:int = 0
-var months_left:int = 0
+@onready var progress_bar: ProgressBar = $LockState/ProgressBar
+@onready var title: RichTextLabel = $LockState/Title
+
+var years_left : int = 0
+var months_left : int = 0
+
+
+func connect_signals() -> void:
+	$ResetBtn.connect("pressed", _on_reset_btn_pressed)
+	%UnlockBtn.connect("pressed", _on_unlock_btn_pressed)
 
 
 func _ready() -> void:
+	
+	connect_signals()
 	# await python
 	var exe_filepath = OS.get_user_data_dir() + "/userdata/notifier.exe"
 
@@ -70,10 +79,10 @@ func _on_unlock_btn_pressed() -> void:
 		push_error("Couldn't open file")
 
 func prev_scene():
-	get_tree().change_scene_to_file("res://scenes/start.tscn")
+	get_tree().change_scene_to_file(reset_scene)
 
-func _on_button_pressed() -> void:
+func _on_reset_btn_pressed() -> void:
 	SaveFile.initialize()
 	WindowsScheduler.uninstall_windows_task()
-	prev_scene()
-	#call_deferred("prev_scene")
+	
+	call_deferred("prev_scene")
