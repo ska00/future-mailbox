@@ -1,12 +1,17 @@
-[gd_scene load_steps=16 format=3 uid="uid://b50keqkt0pp2l"]
+[gd_scene load_steps=25 format=3 uid="uid://b50keqkt0pp2l"]
 
 [ext_resource type="Script" uid="uid://cfsddyghv7nv" path="res://scripts/recieving_page.gd" id="1_2y0cr"]
 [ext_resource type="AudioStream" uid="uid://dj50rsvpkw7di" path="res://sounds/sfx_lockbtns.wav" id="2_68ldb"]
-[ext_resource type="SystemFont" uid="uid://d12m2ku4rafy7" path="res://fonts/fnt_britannic_bold.tres" id="3_b75eb"]
+[ext_resource type="Script" uid="uid://duv8wuvg3ec7c" path="res://scripts/classes/TweenButton.gd" id="4_ep5dp"]
 [ext_resource type="FontFile" uid="uid://cbf6f5iodcwr2" path="res://fonts/fnt_pixellari.ttf" id="4_ka71t"]
 [ext_resource type="Texture2D" uid="uid://bf88l6slo1qmx" path="res://sprites/spr_mailbox_closed.png" id="5_cx2kd"]
+[ext_resource type="Script" uid="uid://d0nbwpkdv4oox" path="res://scripts/reset_btn.gd" id="5_hwo6i"]
 [ext_resource type="Texture2D" uid="uid://cgpu72rdggrm0" path="res://sprites/spr_btn_red.png" id="6_hwo6i"]
+[ext_resource type="Texture2D" uid="uid://mi3k2ivb006u" path="res://sprites/spr_mailbox_open.png" id="7_2y0cr"]
 [ext_resource type="Texture2D" uid="uid://bgtfufhop5a4c" path="res://sprites/spr_btn_red_hover.png" id="7_183xb"]
+[ext_resource type="StyleBox" uid="uid://ceohscv02f7ji" path="res://resources/sbox_btn.tres" id="8_cx2kd"]
+[ext_resource type="StyleBox" uid="uid://d0nokq37v0o5p" path="res://resources/sbox_btn_hover.tres" id="9_hwo6i"]
+[ext_resource type="Texture2D" uid="uid://cahdwh8xhv2tc" path="res://sprites/spr_btn.png" id="10_183xb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdbtu"]
 bg_color = Color(0.56078434, 0.67058825, 0.83137256, 1)
@@ -41,12 +46,26 @@ texture_margin_bottom = 8.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k7gw"]
-bg_color = Color(0.12941177, 0.14901961, 0.18039216, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_185it"]
+bg_color = Color(1, 0.9882353, 0.53333336, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0tym"]
+atlas = ExtResource("10_183xb")
+region = Rect2(13, 155, 96, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6blea"]
+texture = SubResource("AtlasTexture_n0tym")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hillf"]
+atlas = ExtResource("10_183xb")
+region = Rect2(181, 155, 96, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_03qd4"]
+texture = SubResource("AtlasTexture_hillf")
 
 [sub_resource type="SystemFont" id="SystemFont_1nvde"]
 font_names = PackedStringArray("Britannic")
@@ -116,6 +135,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_y7wjr")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_ow40b")
 theme_override_styles/hover = SubResource("StyleBoxTexture_sth28")
 text = "Reset"
+script = ExtResource("5_hwo6i")
 
 [node name="AudioBtn" type="AudioStreamPlayer" parent="." unique_id=1921742410]
 stream = ExtResource("2_68ldb")
@@ -130,23 +150,47 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="UnlockBtn" type="Button" parent="UnlockState" unique_id=277426407]
+[node name="UnlockBtn" type="Button" parent="UnlockState" unique_id=1755535716]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = 47.0
-offset_right = 144.0
-offset_bottom = 148.5
+offset_left = -143.0
+offset_top = 59.0
+offset_right = 143.0
+offset_bottom = 162.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_b75eb")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.5176471)
+theme_override_fonts/font = ExtResource("4_ka71t")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_8k7gw")
-text = "Open Letter"
+theme_override_styles/normal = ExtResource("8_cx2kd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_185it")
+theme_override_styles/hover = ExtResource("9_hwo6i")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_6blea")
+theme_override_styles/focus = SubResource("StyleBoxTexture_03qd4")
+text = "OPEN LETTER"
+script = ExtResource("4_ep5dp")
+
+[node name="Mailbox" type="Control" parent="UnlockState" unique_id=2139508735]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Open" type="Sprite2D" parent="UnlockState/Mailbox" unique_id=905566216]
+texture = ExtResource("7_2y0cr")
+offset = Vector2(10, -240)
 
 [node name="LockState" type="Control" parent="." unique_id=1879942364]
 layout_mode = 1
@@ -177,7 +221,7 @@ theme_override_fonts/italics_font = SubResource("SystemFont_1nvde")
 theme_override_font_sizes/normal_font_size = 44
 theme_override_font_sizes/italics_font_size = 32
 bbcode_enabled = true
-text = "Recieving letter in [color=\"#fffc40\"]0 months[/color] and [color=#fffc40]0 years [/color]"
+text = "Recieving letter in [color=\"#f2d697\"]0 months[/color] and [color=#f2d697]0 years [/color]"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
@@ -196,7 +240,12 @@ offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Sprite" type="Sprite2D" parent="LockState/Mailbox" unique_id=201385159]
+[node name="Open" type="Sprite2D" parent="LockState/Mailbox" unique_id=1868655712]
+texture = ExtResource("7_2y0cr")
+offset = Vector2(10, -240)
+
+[node name="Closed" type="Sprite2D" parent="LockState/Mailbox" unique_id=201385159]
+visible = false
 texture = ExtResource("5_cx2kd")
 offset = Vector2(10, -240)
 
@@ -218,5 +267,11 @@ theme_override_styles/background = SubResource("StyleBoxFlat_yh1xx")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5ybm3")
 show_percentage = false
 
-[connection signal="pressed" from="ResetBtn" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="UnlockState/UnlockBtn" to="." method="_on_unlock_btn_pressed"]
+[node name="Button" type="Button" parent="." unique_id=369370815]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "reset"
+script = ExtResource("5_hwo6i")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

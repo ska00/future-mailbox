@@ -11,33 +11,42 @@ var months_left:int = 0
 
 
 func _ready() -> void:
-	SaveFile.load_file()
-	var open_date = Date.new(SaveFile.contents.open_date)
+	# await python
+	var exe_filepath = OS.get_user_data_dir() + "/userdata/notifier.exe"
+
+	if not FileAccess.file_exists(exe_filepath):
+		push_error("Notifier executable not found at: " + exe_filepath)
+	else:
+		var err = OS.execute(exe_filepath, ["--notify_off"])
+		if err != OK:
+			push_error("Failed to launch notifier.exe, error: " + str(err))
 	
-	if open_date.has_passed():
+	var delivered = SaveFile.contents["delivered"]
+	
+	if delivered:
 		unlock()
 		return
 	
-	
-	var time_left = open_date.get_time_gap()
-	months_left = time_left.months
-	years_left = time_left.years 
+	var chosen_timespan = SaveFile.contents["chosen_timespan"]
+	var timeto_delivery = SaveFile.contents["timeto_delivery"]
 			
 	# Upgade the progress bar
-	var time_gap = SaveFile.contents.time_gap
+	months_left = timeto_delivery["months"]
+	years_left = timeto_delivery["years"]
+	
 	var value = years_left * 12 + months_left
 	
-	progress_bar.max_value = time_gap.years * 12 + time_gap.months
+	progress_bar.max_value = chosen_timespan.years * 12 + chosen_timespan.months
 	progress_bar.value = progress_bar.max_value - value
 	
-	# Upgrade the text
+	# Upgrade the title text
 	var text = "Recieving letter in "
 	if years_left > 0:
-		text = text + str(years_left) + " years"
+		text = text + "[color=#f2d697]" + str(years_left) + " years[/color]"
 	if months_left > 0:
 		if years_left > 0:
 			text = text + " and "
-		text = text + str(months_left) + " months"
+		text = text + "[color=#f2d697]" + str(months_left) + " months[/color]"
 	
 	title.text = text
 	
@@ -64,7 +73,7 @@ func prev_scene():
 	get_tree().change_scene_to_file("res://scenes/start.tscn")
 
 func _on_button_pressed() -> void:
-	await SaveFile.reset()
+	SaveFile.initialize()
 	WindowsScheduler.uninstall_windows_task()
 	prev_scene()
 	#call_deferred("prev_scene")

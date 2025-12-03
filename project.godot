@@ -24,6 +24,7 @@ buses/default_bus_layout="res://sounds/default_bus_layout.tres"
 
 SaveFile="*res://scripts/classes/SaveFile.gd"
 WindowsScheduler="*uid://cbm7x0ly4ldtr"
+Globals="*uid://cqt72mxf21qlr"
 
 [display]
 

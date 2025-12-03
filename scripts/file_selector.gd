@@ -1,20 +1,22 @@
 extends TweenButton
 
 @onready var audio_player: AudioStreamPlayer = %AudioPlayer
-
-@onready var file_dialog: FileDialog = %FileDialog
-@onready var file_path_label: RichTextLabel = %FilePathL
+@onready var file_dialog_popup: FileDialog = %FileDialog
+@onready var file_name_label: RichTextLabel = %FileNameUser
 @onready var send_btn: Button = %SendBtn
 
-var file_selected_path = null
+var file_path = null
 
-signal send
+signal copied_file
 
 
 func _ready():
 	super._ready()
 	send_btn.hide()
-	# Connect signal
+	
+	# Signals
+	self.connect("pressed", _on_pressed)
+	file_dialog_popup.connect("file_selected", _on_file_selected)
 	send_btn.connect("pressed", _on_send_btn_pressed)
 	
 	
@@ -22,35 +24,25 @@ func _on_pressed() -> void:
 	disabled = true
 	
 	audio_player.play()
-	file_dialog.popup_centered()
+	file_dialog_popup.popup_centered()
 	send_btn.hide()
 	
 
-func _on_file_dialog_file_selected(path: String):
+func _on_file_selected(path: String):
 	disabled = false
 	text = "Change File..."
 	
-	file_selected_path = path
-	file_path_label.text =  path
+	file_path = path
+	file_name_label.text =  path.get_file()
 	
 	send_btn.show()
 
 
-func _on_file_dialog_canceled() -> void:
-	disabled = false
-	if file_path_label.text:
-		file_path_label.clear()
-	file_selected_path = null
-	
-	send_btn.hide()
-
-
 func _on_send_btn_pressed() -> void:
-	if file_selected_path:
-		#lock_window.popup_centered()
-		
+	if file_path:		
 		audio_player.play()
-		copy_file_to_library(file_selected_path)
+		if copy_file_to_library(file_path):
+			copied_file.emit()
 		
 	else:
 		push_error("no file selected to send")
@@ -69,19 +61,13 @@ func copy_file_to_library(source_path: String):
 	var file_name = source_path.get_file()
 	var destination = library_dir + file_name
 	
-	SaveFile.contents.path = destination
-	SaveFile.save_file()
-	
 	# Copy the file
 	if copy_file(source_path, destination):
-		print("Copy Successful, wrote to:", ProjectSettings.globalize_path(destination))
-		
-		# get_tree().change_scene_to_file("res://scenes/safehold.tscn")
-		send.emit()
-		# lock_window.queue_free()
+		if Globals.DEBUGGING: print("Copy Successful, wrote to:", ProjectSettings.globalize_path(destination))
+		return true
 	else:
-		print("Copy failed")
-		#
+		push_error("Copy failed")
+		return false
 
 
 func copy_file(source_path: String, destination_path: String) -> bool:

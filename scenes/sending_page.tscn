@@ -47,7 +47,7 @@ font_weight = 600
 subpixel_positioning = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8nf6"]
-bg_color = Color(1, 0.9882353, 0.2509804, 1)
+bg_color = Color(0.9490196, 0.8392157, 0.5921569, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -69,12 +69,12 @@ corner_radius_bottom_left = 4
 shadow_size = 1
 shadow_offset = Vector2(1, 2)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hillf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vttb"]
 atlas = ExtResource("2_n58bm")
 region = Rect2(181, 155, 96, 24)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x1pfr"]
-texture = SubResource("AtlasTexture_hillf")
+texture = SubResource("AtlasTexture_2vttb")
 
 [sub_resource type="Image" id="Image_pgjjs"]
 data = {
@@ -1119,12 +1119,12 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n0tym"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7q1w"]
 atlas = ExtResource("2_n58bm")
 region = Rect2(13, 155, 96, 24)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8jfef"]
-texture = SubResource("AtlasTexture_n0tym")
+texture = SubResource("AtlasTexture_w7q1w")
 
 [node name="SendingPage" type="Control" unique_id=1521252037]
 layout_mode = 3
@@ -1206,7 +1206,7 @@ columns = 2
 
 [node name="MonthsL" type="Label" parent="Selection" unique_id=1938229050]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.9882353, 0.2509804, 1)
+theme_override_colors/font_color = Color(0.9490196, 0.8392157, 0.5921569, 1)
 theme_override_fonts/font = ExtResource("3_i6y2h")
 theme_override_font_sizes/font_size = 24
 text = "Months"
@@ -1235,7 +1235,7 @@ offset_top = -36.0
 offset_right = 19.0
 offset_bottom = -13.0
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 0.9882353, 0.2509804, 1)
+theme_override_colors/font_color = Color(0.9490196, 0.8392157, 0.5921569, 1)
 theme_override_fonts/font = ExtResource("3_i6y2h")
 theme_override_font_sizes/font_size = 20
 text = "0"
@@ -1248,7 +1248,7 @@ bus = &"sfx"
 
 [node name="YearsL" type="Label" parent="Selection" unique_id=1086011598]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.9882353, 0.2509804, 1)
+theme_override_colors/font_color = Color(0.9490196, 0.8392157, 0.5921569, 1)
 theme_override_fonts/font = ExtResource("3_i6y2h")
 theme_override_font_sizes/font_size = 24
 text = "Years"
@@ -1276,7 +1276,7 @@ offset_top = -36.0
 offset_right = 19.0
 offset_bottom = -13.0
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 0.9882353, 0.2509804, 1)
+theme_override_colors/font_color = Color(0.9490196, 0.8392157, 0.5921569, 1)
 theme_override_fonts/font = ExtResource("3_i6y2h")
 theme_override_font_sizes/font_size = 20
 text = "0"
@@ -1304,7 +1304,7 @@ theme_override_constants/separation = 8
 
 [node name="NotifLabel" type="Label" parent="NotifHBox" unique_id=814963630]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.9882353, 0.2509804, 1)
+theme_override_colors/font_color = Color(0.9490196, 0.8392157, 0.5921569, 1)
 theme_override_fonts/font = ExtResource("3_i6y2h")
 theme_override_font_sizes/font_size = 24
 text = "Allow notifications?"
@@ -1316,7 +1316,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-button_pressed = true
 expand_icon = true
 
 [node name="BottomPanel" type="Control" parent="." unique_id=458647654]
@@ -1361,7 +1360,7 @@ offset_left = 147.0
 offset_top = 81.0
 offset_right = 284.0
 offset_bottom = 105.0
-theme_override_colors/font_color = Color(1, 0.9882353, 0.2509804, 1)
+theme_override_colors/font_color = Color(0.9490196, 0.8392157, 0.5921569, 1)
 theme_override_fonts/font = ExtResource("3_i6y2h")
 theme_override_font_sizes/font_size = 24
 text = "Selected file:"
@@ -1411,6 +1410,7 @@ theme_override_styles/hover = ExtResource("7_bvehf")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_8jfef")
 theme_override_styles/focus = SubResource("StyleBoxTexture_x1pfr")
 text = "SEND"
+script = ExtResource("10_sgf75")
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="BottomPanel" unique_id=1043291295]
 unique_name_in_owner = true
@@ -1427,8 +1427,8 @@ file_mode = 0
 access = 2
 use_native_dialog = true
 
+[connection signal="pressed" from="DebugBtn" to="." method="_on_debug_btn_pressed"]
 [connection signal="value_changed" from="Selection/MonthSlider" to="Selection/MonthSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="Selection/YearSlider" to="Selection/YearSlider" method="_on_value_changed"]
-[connection signal="pressed" from="BottomPanel/SelectFileBtn" to="BottomPanel/SelectFileBtn" method="_on_pressed"]
 [connection signal="canceled" from="PopupLayer/FileDialog" to="BottomPanel/SelectFileBtn" method="_on_file_dialog_canceled"]
 [connection signal="file_selected" from="PopupLayer/FileDialog" to="BottomPanel/SelectFileBtn" method="_on_file_dialog_file_selected"]

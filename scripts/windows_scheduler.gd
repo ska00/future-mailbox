@@ -1,10 +1,10 @@
 extends Node
 
-const DEBUG_MODE = true
+const DEBUG_MODE = Globals.DEBUGGING
 const USER_DIR_NAME = "userdata"
 const TASK_NAME = "FutureMailbox"
 
-@onready var USER_PATH = OS.get_user_data_dir() + USER_DIR_NAME
+@onready var USER_PATH = OS.get_user_data_dir() + "/" + USER_DIR_NAME
 
 
 func setup_daily_notifications():
