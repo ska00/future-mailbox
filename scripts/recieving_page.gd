@@ -1,6 +1,6 @@
 extends Control
 
-@onready var reset_scene = "res://scenes/start.tscn"
+@onready var reset_scene = "res://scenes/sending_page.tscn"
 
 @onready var lock_state: Control = $LockState
 @onready var unlock_state: Control = $UnlockState
