@@ -1,47 +1,9 @@
-2025-12-02T16:01:05.897155: Script started
-2025-12-02T16:01:05.897717: Error updating savefile: [Errno 2] No such file or directory: 'C:\\Users\\salam\\GitHub\\letter-opener\\userdata\\save_file.json'
-2025-12-02T16:01:05.903104: Traceback (most recent call last):
-  File "C:\Users\salam\GitHub\letter-opener\userdata\notify_check.py", line 56, in update_savefile
+2025-12-04T11:15:02.885086: Script started
+2025-12-04T11:15:02.886007: Error updating savefile: [Errno 2] No such file or directory: 'save_file.txt'
+2025-12-04T11:15:02.889127: Traceback (most recent call last):
+  File "C:\Users\salam\github\letter-opener\userdata\notifier.py", line 153, in update_savefile
     with open(SAVE_FILE, "r") as f:
          ~~~~^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\salam\\GitHub\\letter-opener\\userdata\\save_file.json'
+FileNotFoundError: [Errno 2] No such file or directory: 'save_file.txt'
 
-2025-12-02T16:01:05.903335: Condition override: always true for testing
-2025-12-02T16:01:05.910204: Updated last_notify.txt
-2025-12-02T16:01:05.910432: Script finished
-2025-12-02T16:01:57.270231: Script started
-2025-12-02T16:01:57.270632: Error updating savefile: [Errno 2] No such file or directory: 'C:\\Users\\salam\\GitHub\\letter-opener\\userdata\\save_file.json'
-2025-12-02T16:01:57.277069: Traceback (most recent call last):
-  File "C:\Users\salam\GitHub\letter-opener\userdata\notify_check.py", line 56, in update_savefile
-    with open(SAVE_FILE, "r") as f:
-         ~~~~^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\salam\\GitHub\\letter-opener\\userdata\\save_file.json'
-
-2025-12-02T16:01:57.285418: Notification already sent today, exiting
-2025-12-02T16:02:44.421124: Script started
-2025-12-02T16:02:44.421715: Error updating savefile: [Errno 2] No such file or directory: 'C:\\Users\\salam\\GitHub\\letter-opener\\userdata\\save_file.json'
-2025-12-02T16:02:44.431628: Traceback (most recent call last):
-  File "C:\Users\salam\GitHub\letter-opener\userdata\notify_check.py", line 56, in update_savefile
-    with open(SAVE_FILE, "r") as f:
-         ~~~~^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\salam\\GitHub\\letter-opener\\userdata\\save_file.json'
-
-2025-12-02T16:02:44.432569: Notification already sent today, exiting
-2025-12-02T16:06:36.385144: Script started
-2025-12-02T16:06:36.395327: Error updating savefile: 'NoneType' object is not subscriptable
-2025-12-02T16:06:36.404402: Traceback (most recent call last):
-  File "C:\Users\salam\GitHub\letter-opener\userdata\notify_check.py", line 62, in update_savefile
-    send_date["year"], send_date["month"], send_date["day"]
-    ~~~~~~~~~^^^^^^^^
-TypeError: 'NoneType' object is not subscriptable
-
-2025-12-02T16:06:36.405092: Notification already sent today, exiting
-2025-12-02T16:12:22.279406: Script started
-2025-12-02T16:12:22.289619: Error updating savefile: 'year'
-2025-12-02T16:12:22.304400: Traceback (most recent call last):
-  File "C:\Users\salam\GitHub\letter-opener\userdata\notify_check.py", line 62, in update_savefile
-    send_date["year"], send_date["month"], send_date["day"]
-    ~~~~~~~~~^^^^^^^^
-KeyError: 'year'
-
-2025-12-02T16:12:22.306227: Notification already sent today, exiting
+2025-12-04T11:15:02.889468: Script finished. No notification triggered

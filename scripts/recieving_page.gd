@@ -21,8 +21,7 @@ func connect_signals() -> void:
 func _ready() -> void:
 	
 	connect_signals()
-	run_notifier()
-	
+
 	var delivered = SaveFile.contents["delivered"]
 	
 	if delivered:
@@ -64,18 +63,7 @@ func prev_scene():
 	get_tree().change_scene_to_file(reset_scene)
 
 
-func run_notifier() -> bool:
-	var exe_filepath = OS.get_user_data_dir() + "/userdata/notifier.exe"
 
-	if not FileAccess.file_exists(exe_filepath):
-		push_error("Notifier executable not found at: " + exe_filepath)
-		return false
-	else:
-		var err = OS.execute(exe_filepath, ["--notify_off"])
-		if err != OK:
-			push_error("Failed to launch notifier.exe, error: " + str(err))
-			return false
-	return true
 
 
 func _on_unlock_btn_pressed() -> void:

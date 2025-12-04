@@ -42,10 +42,54 @@ func _on_copied_file(letter_path : String) -> void:
 		
 	SaveFile.contents["copied_files"] = true
 	
-	SaveFile.save_file()
+	run_notifier()
 		
 	call_deferred("next_scene")
 
 
+func run_notifier() -> bool:
+	var exe_filepath = OS.get_user_data_dir() + "/userdata/dist/notifier/notifier.exe"
+	var python_path = OS.get_user_data_dir() + "/userdata/notifier.py"
+	
+	var path := OS.get_user_data_dir() + "/userdata/temp.json"
+	var filepath_arg := ProjectSettings.globalize_path(path)
+	var output = []
+	
+	if not FileAccess.file_exists(exe_filepath):
+		push_error("Notifier executable not found at: " + exe_filepath)
+		return false
+	else:
+		var json = JSON.stringify(SaveFile.contents)
+
+		# write temp file
+		
+		var f := FileAccess.open(path, FileAccess.WRITE)
+		f.store_string(json)
+		f.close()
+
+	
+		
+		print("File path:", filepath_arg)
+		print("Argument: ", str(SaveFile.contents))
+
+		var error = OS.execute(
+			"python.exe",
+			[python_path, "--notify_off", "-c", filepath_arg],
+			output,
+			false,
+			false
+		)
+		#var output = []
+		#var error = OS.execute("python.exe", [python_path,"-n", "-c", JSON.stringify(SaveFile.contents)], output, false,true )
+		if error != OK:
+			push_error("Failed to launch notifier.exe, error: " + str(error))
+			return false
+		if Globals.DEBUGGING: print("The output array is: ", output)
+	if Globals.DEBUGGING: print("Python completed execution")
+	
+	if output:
+		SaveFile.load_file(filepath_arg)
+	return true
+	
 func _on_debug_btn_pressed() -> void:
 	_on_copied_file("")

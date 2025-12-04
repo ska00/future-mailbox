@@ -7,6 +7,30 @@ import sys
 import traceback
 from dateutil.relativedelta import relativedelta
 from winotify import Notification
+import re
+import ast
+
+def string_to_dict(s):
+    # 1. Quote all keys
+    s = re.sub(r'([{,]\s*)([A-Za-z_]\w*)\s*:', r'\1"\2":', s)
+    
+    # 2. Replace JSON booleans with Python booleans
+    s = s.replace('true', 'True').replace('false', 'False')
+    
+    # 3. Replace empty values with empty string
+    s = re.sub(r'":(?=[,}])', '":""', s)
+    
+    # 4. Convert to dictionary
+    return ast.literal_eval(s)
+
+def create_files():
+    if not os.path.exists(LAST_NOTIFY):
+        with open(LAST_NOTIFY, "w") as f:
+            pass
+    if not os.path.exists(LOG_FILE):
+        with open(LOG_FILE, "w") as f:
+            pass
+
 
 
 SAVE_FILE = os.path.abspath("save_file.json")
@@ -18,6 +42,7 @@ APP_ID = "Future Mailbox"
 TITLE = "Your Daily Godot Reminder"
 MESSAGE = "Unread Mail"
 
+create_files()
 
 parser = argparse.ArgumentParser(
     prog='Datetime interpretor',
@@ -25,7 +50,22 @@ parser = argparse.ArgumentParser(
 
 
 parser.add_argument('-n', '--notify_off', action='store_false')
-is_notifying = parser.parse_args().notify_off
+parser.add_argument("-c", "--contents")
+
+
+
+
+try:
+    args = parser.parse_args()
+    # godot_contents = string_to_dict(args.contents)
+    SAVE_FILE = args.contents
+    godot_contents = None
+    is_notifying = args.notify_off
+
+    # SAVE_FILE = godot_contents
+
+except Exception as e:
+    log(f"Error reading arguments: {e}")
 
 
 def main():
@@ -59,6 +99,7 @@ def main():
     log("Script finished")
 
 
+
 def log(msg):
     try:
         timestamp = datetime.datetime.now().isoformat()
@@ -69,11 +110,15 @@ def log(msg):
 
 
 def load_condition(always_true = False):
-    
+    global godot_contents
+
     if always_true:
         log("Condition override: always true for testing")
         return True
     
+    if godot_contents:
+        return godot_contents["delivered"] 
+
     try:
         with open(SAVE_FILE, "r") as f:
             contents = json.load(f)
@@ -100,9 +145,13 @@ def send_notification(title, message):
 
 
 def update_savefile():
+    global godot_contents
     try:
-        with open(SAVE_FILE, "r") as f:
-            contents = json.load(f)
+        if godot_contents:
+            contents = godot_contents
+        else:
+            with open(SAVE_FILE, "r") as f:
+                contents = json.load(f)
 
         send_date = contents.get("send_date")
         timespan = contents.get("chosen_timespan")
@@ -129,11 +178,17 @@ def update_savefile():
         else:
             contents["timeto_delivery"] = {"years":timeto_delivery.years, "months":timeto_delivery.months, "days":timeto_delivery.days} 
 
-        with open(SAVE_FILE, "w") as f:
-            json.dump(contents, f)
+        if not is_notifying:
+            with open(SAVE_FILE, "w") as f:
+                json.dump(contents, f)
+            print("success")
+            godot_contents = contents
+        else:
+            with open(SAVE_FILE, "w") as f:
+                json.dump(contents, f)
 
         log(f"Savefile updated successfully {today.isoformat()}")
-        
+
 
     except Exception as e:
         log(f"Error updating savefile: {e}")

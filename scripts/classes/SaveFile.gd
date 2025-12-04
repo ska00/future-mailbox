@@ -25,6 +25,13 @@ const DEFAULT_CONTENTS : Dictionary = {
 var contents : Dictionary = {}
 
 
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if Globals.DEBUGGING: print("Quiting game")
+		save_file()
+		get_tree().quit() # default behavior
+		
+
 func _ready():
 	if not FileAccess.file_exists(LOCATION) or Globals.EMPTYSAVE:
 		initialize()
@@ -40,13 +47,14 @@ func save_file():
 	var file = FileAccess.open(LOCATION, FileAccess.WRITE)
 	if file:
 		file.store_string(JSON.stringify(contents))
+		file.flush()
 		file.close()
 	else:
 		push_error("Failed to open file for writing.")
 
 
-func load_file():
-	var file = FileAccess.open(LOCATION, FileAccess.READ)
+func load_file(path = LOCATION):
+	var file = FileAccess.open(path, FileAccess.READ)
 	if file:
 		var json_text = file.get_as_text()
 		file.close()
@@ -55,7 +63,8 @@ func load_file():
 		var parse_result = json.parse(json_text)  # call parse on the instance
 		if parse_result == OK:
 			contents = json.data
-			# print("Loaded contents:", contents)
+			
+			if Globals.DEBUGGING: print("Loaded contents:", contents)
 		else:
 			push_error("Failed to parse JSON:", parse_result.error, parse_result.error_line, parse_result.error_column)
 	else:
@@ -65,4 +74,5 @@ func load_file():
 	
 func initialize():
 	contents = DEFAULT_CONTENTS.duplicate(true)  # deep copy
-	save_file()
+	
+	# save_file()

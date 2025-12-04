@@ -1,4 +1,4 @@
 extends Node
 
 const DEBUGGING = true
-const EMPTYSAVE = false
+const EMPTYSAVE = true
