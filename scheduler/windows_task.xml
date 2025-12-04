@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-16"?>
-<Task xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task" version="1.2">
-
+<Task xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
   <RegistrationInfo>
 	<Date>2025-11-29T00:00:00</Date>
-	<Author>LetterOpener</Author>
+	<Author>FutureMailbox</Author>
 	<Description>Daily Godot notification task</Description>
   </RegistrationInfo>
 
@@ -48,8 +47,6 @@
   <Actions Context="Author">
 	<Exec>
 	  <Command>__COMMAND_PATH__</Command>
-	  <Arguments>__ARG_PATH__</Arguments>
-	  <WorkingDirectory>__DIRECTORY_PATH__</WorkingDirectory>
 	</Exec>
   </Actions>
 

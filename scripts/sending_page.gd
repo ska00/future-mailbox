@@ -10,8 +10,6 @@ const next_scene_file := "res://scenes/recieving_page.tscn"
 @onready var year_slider: HSlider = %YearSlider
 
 
-
-
 func _ready():
 	month_slider.value = Months
 	year_slider.value = Years
@@ -47,49 +45,43 @@ func _on_copied_file(letter_path : String) -> void:
 	call_deferred("next_scene")
 
 
-func run_notifier() -> bool:
-	var exe_filepath = OS.get_user_data_dir() + "/userdata/dist/notifier/notifier.exe"
-	var python_path = OS.get_user_data_dir() + "/userdata/notifier.py"
-	
-	var path := OS.get_user_data_dir() + "/userdata/temp.json"
-	var filepath_arg := ProjectSettings.globalize_path(path)
+func run_notifier():
+
+	var arg_path = ProjectSettings.globalize_path(SaveFile.LOCATION)
+	var exe_filepath = OS.get_user_data_dir() + "/userdata/notifier.exe"
 	var output = []
 	
 	if not FileAccess.file_exists(exe_filepath):
 		push_error("Notifier executable not found at: " + exe_filepath)
-		return false
-	else:
-		var json = JSON.stringify(SaveFile.contents)
+		return
 
-		# write temp file
-		
-		var f := FileAccess.open(path, FileAccess.WRITE)
-		f.store_string(json)
-		f.close()
-
+	var json = JSON.stringify(SaveFile.contents)
+	var f := FileAccess.open(arg_path, FileAccess.WRITE)
+	f.store_string(json)
+	f.close()
 	
-		
-		print("File path:", filepath_arg)
+	if Globals.DEBUGGING:
+		print("File path:", arg_path)
 		print("Argument: ", str(SaveFile.contents))
+	
+	var error = OS.execute(
+		exe_filepath,
+		["--notify_off", "--temp_filepath", arg_path],
+		output,
+		false,
+		false)
 
-		var error = OS.execute(
-			"python.exe",
-			[python_path, "--notify_off", "-c", filepath_arg],
-			output,
-			false,
-			false
-		)
-		#var output = []
-		#var error = OS.execute("python.exe", [python_path,"-n", "-c", JSON.stringify(SaveFile.contents)], output, false,true )
-		if error != OK:
-			push_error("Failed to launch notifier.exe, error: " + str(error))
-			return false
-		if Globals.DEBUGGING: print("The output array is: ", output)
+	if error != OK:
+		push_error("Failed to launch notifier.exe, error: " + str(error))
+
+	if Globals.DEBUGGING: print("The output array is: ", output)
 	if Globals.DEBUGGING: print("Python completed execution")
 	
 	if output:
-		SaveFile.load_file(filepath_arg)
-	return true
+		SaveFile.load_file()
+	else:
+		push_error("executable failed to provide output")
+
 	
 func _on_debug_btn_pressed() -> void:
 	_on_copied_file("")

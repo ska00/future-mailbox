@@ -31,7 +31,6 @@ func _ready() -> void:
 	var chosen_timespan = SaveFile.contents["chosen_timespan"]
 	var timeto_delivery = SaveFile.contents["timeto_delivery"]
 			
-
 	years_left = timeto_delivery["years"]
 	months_left = timeto_delivery["months"]
 	days_left = timeto_delivery["days"]
@@ -50,6 +49,10 @@ func _ready() -> void:
 		if years_left > 0:
 			text = text + " and "
 		text = text + "[color=#f2d697]" + str(months_left) + " months[/color]"
+	if days_left > 0:
+		if years_left > 0 or months_left > 0:
+			text = text + " and "
+		text = text + "[color=#f2d697]" + str(days_left) + " days[/color]"
 	
 	title.text = text
 	
@@ -61,18 +64,14 @@ func unlock():
 
 func prev_scene():
 	get_tree().change_scene_to_file(reset_scene)
-
-
-
-
+	
 
 func _on_unlock_btn_pressed() -> void:
 	# Find the file.
-	SaveFile.load_file()
-	var library_dir = SaveFile.contents.path
+	var library_dir = SaveFile.contents["letter_path"]
 	library_dir = ProjectSettings.globalize_path(library_dir)
-	var dir = FileAccess.open(library_dir, FileAccess.READ)
 	
+	var dir = FileAccess.open(library_dir, FileAccess.READ)
 	if dir:
 		$AudioBtn.play()
 		OS.shell_open(library_dir)
@@ -81,7 +80,6 @@ func _on_unlock_btn_pressed() -> void:
 
 
 func _on_reset_btn_pressed() -> void:
-	SaveFile.initialize()
-	WindowsScheduler.uninstall_windows_task()
+	Globals.wipe_files()
 	
 	call_deferred("prev_scene")

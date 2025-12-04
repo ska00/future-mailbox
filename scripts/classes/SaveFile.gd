@@ -2,15 +2,6 @@ extends Node
 
 @onready var LOCATION = OS.get_user_data_dir() + "/userdata/save_file.json"
 
-#const DEFAULT_CONTENTS: Dictionary = {
-	#"is_locked": false,
-	#"open_date": {"year":1, "month":1, "day":1},
-	#"locked_date": {"year":1, "month":1, "day":1},
-	#"time_gap": {"months": 0, "years": 0},
-	#"path": "user://",
-	#"task_scheduler_is_installed": false
-#}
-
 const DEFAULT_CONTENTS : Dictionary = {
 	"sending" : false,
 	"is_notifying": false,
@@ -37,8 +28,6 @@ func _ready():
 		initialize()
 	else:
 		load_file()
-	
-	# load_file()
 	
 	if Globals.DEBUGGING: print(SaveFile.contents)
 
