@@ -90,50 +90,6 @@ func install_windows_task():
 		print("RESULT = ", result)
 		print("OUTPUT = ", output)
 
-	
-
-
-#func install_windows_task():
-	#var exe_path = ProjectSettings.globalize_path(USER_PATH + "/notifier.exe")
-	#var save_path = ProjectSettings.globalize_path(SaveFile.LOCATION)
-	#var dir_path = ProjectSettings.globalize_path(USER_PATH)
-#
-	## Load template XML
-	#var xml_path = "res://scheduler/windows_task.xml"
-	#var xml_file = FileAccess.open(xml_path, FileAccess.READ)
-	#var xml = xml_file.get_as_text()
-	#xml_file.close()
-	#
-	## Task Scheduler only understands backslashes
-	#exe_path = exe_path.replace("/", "\\")
-	#dir_path = dir_path.replace("/", "\\")
-	#save_path = '-t "' + save_path + '"'
-	#save_path = save_path.replace("/", "\\")
-#
-	#xml = xml.replace("__COMMAND_PATH__", '"' + exe_path + '"')
-	#xml = xml.replace("__ARG_PATH__", save_path)
-	#xml = xml.replace("__DIRECTORY_PATH__", dir_path + "\\")
-#
-#
-	#var user_xml_path = USER_PATH + "/windows_notify_task.xml"
-	#var out = FileAccess.open(user_xml_path, FileAccess.WRITE)
-	#out.store_string(xml)
-	#out.close()
-#
-	## Install the task
-	#var args = [
-		#"/Create",
-		#"/TN", TASK_NAME,
-		#"/XML", user_xml_path
-	#]
-	#var output = []
-	#var result = OS.execute("schtasks", args, output, true)
-	#
-	#if DEBUG_MODE: 
-		#print("\nTask Scheduler result: ", result)
-		#print("Output is: ", output)
-		#print()
-
 
 func uninstall_windows_task():
 	# Delete the task silently
