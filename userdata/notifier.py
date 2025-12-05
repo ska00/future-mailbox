@@ -11,17 +11,7 @@ from winotify import Notification
 APP_ID = "Future Mailbox"
 TITLE = "Unread Mail"
 MESSAGE = "Your letter has been delivered! You should check out your mailbox soon"
-ICON_FILE = "C:\\Users\\salam\\GitHub\\letter-opener\\userdata\\icon.ico"
 
-toast = Notification(
-        app_id = APP_ID,
-        title = TITLE,
-        msg = MESSAGE,
-        icon = ICON_FILE, 
-        # duration = "long"
-    )
-toast.show()
-sys.exit(0)
 
 def log(msg):
     try:
@@ -56,7 +46,7 @@ SAVE_FILE = os.path.abspath(SAVE_FILE)
 BASE_DIR = os.path.dirname(SAVE_FILE)
 LAST_NOTIFY = os.path.join(BASE_DIR, "last_notify.txt")
 LOG_FILE = os.path.join(BASE_DIR, "notif_log.txt")
-
+ICON_FILE = os.path.join(BASE_DIR, "icon.ico")
 
 def main():
     log("Script started")
