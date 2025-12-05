@@ -1171,9 +1171,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -235.0
-offset_top = 50.0
+offset_top = 41.0
 offset_right = 235.0
-offset_bottom = 194.0
+offset_bottom = 185.0
 grow_horizontal = 2
 theme_override_fonts/normal_font = ExtResource("3_i6y2h")
 theme_override_fonts/italics_font = SubResource("SystemFont_1bvp3")
@@ -1203,6 +1203,47 @@ grow_vertical = 2
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 2
+
+[node name="DaysL" type="Label" parent="Selection" unique_id=647329644]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9490196, 0.8392157, 0.5921569, 1)
+theme_override_fonts/font = ExtResource("3_i6y2h")
+theme_override_font_sizes/font_size = 24
+text = "Days"
+vertical_alignment = 1
+
+[node name="DaySlider" type="HSlider" parent="Selection" unique_id=1104327500]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_m8nf6")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_pgjjs")
+max_value = 30.0
+tick_count = 29
+ticks_on_borders = true
+script = ExtResource("4_gv8tq")
+
+[node name="NumL" type="Label" parent="Selection/DaySlider" unique_id=234288128]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -36.0
+offset_right = 19.0
+offset_bottom = -13.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.9490196, 0.8392157, 0.5921569, 1)
+theme_override_fonts/font = ExtResource("3_i6y2h")
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Selection/DaySlider" unique_id=823975737]
+stream = ExtResource("5_8fu58")
+bus = &"sfx"
 
 [node name="MonthsL" type="Label" parent="Selection" unique_id=1938229050]
 layout_mode = 2
@@ -1295,9 +1336,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -127.0
-offset_top = -17.0
+offset_top = 15.0
 offset_right = 124.0
-offset_bottom = 23.0
+offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
@@ -1325,7 +1366,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -248.0
+offset_top = -215.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -1392,9 +1433,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -81.0
-offset_top = -113.0
+offset_top = -92.0
 offset_right = 81.0
-offset_bottom = -65.0
+offset_bottom = -44.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -1429,6 +1470,7 @@ access = 2
 use_native_dialog = true
 
 [connection signal="pressed" from="DebugBtn" to="." method="_on_debug_btn_pressed"]
+[connection signal="value_changed" from="Selection/DaySlider" to="Selection/DaySlider" method="_on_value_changed"]
 [connection signal="value_changed" from="Selection/MonthSlider" to="Selection/MonthSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="Selection/YearSlider" to="Selection/YearSlider" method="_on_value_changed"]
 [connection signal="canceled" from="PopupLayer/FileDialog" to="BottomPanel/SelectFileBtn" method="_on_file_dialog_canceled"]

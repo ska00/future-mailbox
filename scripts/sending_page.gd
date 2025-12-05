@@ -6,6 +6,7 @@ const next_scene_file := "res://scenes/recieving_page.tscn"
 @export_range(0, 10) var Years: int
 
 @onready var notif_check: CheckBox = %NotifCheck
+@onready var day_slider: HSlider = %DaySlider
 @onready var month_slider: HSlider = %MonthSlider
 @onready var year_slider: HSlider = %YearSlider
 
@@ -30,6 +31,7 @@ func _on_copied_file(letter_path : String) -> void:
 	SaveFile.contents["sending"] = true
 	SaveFile.contents["letter_path"] = letter_path
 	SaveFile.contents["send_date"] = Time.get_date_dict_from_system()
+	SaveFile.contents["chosen_timespan"]["days"] = int(day_slider.value)
 	SaveFile.contents["chosen_timespan"]["months"] = int(month_slider.value)
 	SaveFile.contents["chosen_timespan"]["years"] = int(year_slider.value)
 	

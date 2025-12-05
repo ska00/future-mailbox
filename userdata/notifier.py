@@ -152,6 +152,7 @@ def update_savefile():
             contents["timeto_delivery"] = {"years":0, "months":0, "days":0 } 
         else:
             contents["timeto_delivery"] = {"years":timeto_delivery.years, "months":timeto_delivery.months, "days":timeto_delivery.days} 
+            contents["timeto_delivery_days"] = (recieve_date - today).days
 
         with open(SAVE_FILE, "w") as f:
             json.dump(contents, f)

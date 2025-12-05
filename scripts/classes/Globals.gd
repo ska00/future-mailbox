@@ -13,5 +13,6 @@ func wipe_files():
 		DirAccess.remove_absolute("user://userdata/notif_log.txt")
 	
 	var lib_dir = DirAccess.open("user://library")
-	for file in lib_dir.get_files():
-		lib_dir.remove(file)
+	if lib_dir:
+		for file in lib_dir.get_files():
+			lib_dir.remove(file)
