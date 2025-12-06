@@ -1,6 +1,6 @@
 extends Node
 
-const DEBUGGING = true
+const DEBUGGING = false
 const EMPTYSAVE = false
 
 func wipe_files():

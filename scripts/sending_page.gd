@@ -27,7 +27,7 @@ func next_scene():
 
 
 func _on_copied_file(letter_path : String) -> void:
-	SaveFile.load_file()
+	# SaveFile.load_file()
 	SaveFile.contents["sending"] = true
 	SaveFile.contents["letter_path"] = letter_path
 	SaveFile.contents["send_date"] = Time.get_date_dict_from_system()

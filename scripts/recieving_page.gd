@@ -7,6 +7,7 @@ extends Control
 
 @onready var progress_bar: ProgressBar = $LockState/ProgressBar
 @onready var title: RichTextLabel = $LockState/Title
+@onready var audio_btn: AudioStreamPlayer = $AudioBtn
 
 var years_left : int = 0
 var months_left : int = 0
@@ -28,31 +29,42 @@ func _ready() -> void:
 		unlock()
 		return
 	
-	var chosen_timespan = SaveFile.contents["chosen_timespan"]
 	var timeto_delivery = SaveFile.contents["timeto_delivery"]
+	var timeto_delivery_days = SaveFile.contents["timeto_delivery_days"]
+	var init_timeto_delivery_days = SaveFile.contents["init_timeto_delivery_days"]
 			
-	years_left = timeto_delivery["years"]
-	months_left = timeto_delivery["months"]
-	days_left = timeto_delivery["days"]
+	years_left = int(timeto_delivery["years"])
+	months_left = int(timeto_delivery["months"])
+	days_left = int(timeto_delivery["days"])
 	
 	# Upgade the progress bar
-	var progress_value = years_left * 365 + months_left * 30 + days_left
-	
-	progress_bar.max_value = chosen_timespan.years * 365 + chosen_timespan.months * 30
-	progress_bar.value = progress_bar.max_value - progress_value
+	progress_bar.max_value = init_timeto_delivery_days
+	progress_bar.value = progress_bar.max_value - timeto_delivery_days
 	
 	# Upgrade the title text
 	var text = "Recieving letter in "
 	if years_left > 0:
-		text = text + "[color=#f2d697]" + str(years_left) + " years[/color]"
+		if years_left == 1:
+			text = text + "[color=#f2d697]" + str(years_left) + " year[/color]"
+		else:
+			text = text + "[color=#f2d697]" + str(years_left) + " years[/color]"
 	if months_left > 0:
 		if years_left > 0:
-			text = text + " and "
-		text = text + "[color=#f2d697]" + str(months_left) + " months[/color]"
+			if days_left > 0:
+				text = text + ", "
+			else:
+				text = text + " and "
+		if months_left == 1:
+			text = text + "[color=#f2d697]" + str(months_left) + " month[/color]"
+		else:
+			text = text + "[color=#f2d697]" + str(months_left) + " months[/color]"
 	if days_left > 0:
 		if years_left > 0 or months_left > 0:
 			text = text + " and "
-		text = text + "[color=#f2d697]" + str(days_left) + " days[/color]"
+		if days_left == 1:
+			text = text + "[color=#f2d697]" + str(days_left) + " day[/color]"
+		else:
+			text = text + "[color=#f2d697]" + str(days_left) + " days[/color]"
 	
 	title.text = text
 	
@@ -80,6 +92,7 @@ func _on_unlock_btn_pressed() -> void:
 
 
 func _on_reset_btn_pressed() -> void:
+	audio_btn.play()
 	Globals.wipe_files()
 	
 	call_deferred("prev_scene")
