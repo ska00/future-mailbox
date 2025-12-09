@@ -15,6 +15,44 @@ func setup_daily_notifications():
 		install_windows_task()
 
 
+func run_notifier():
+
+	var arg_path = ProjectSettings.globalize_path(SaveFile.LOCATION)
+	var exe_filepath = OS.get_user_data_dir() + "/userdata/notifier.exe"
+	var output = []
+	
+	if not FileAccess.file_exists(exe_filepath):
+		push_error("Notifier executable not found at: " + exe_filepath)
+		return
+
+	var json = JSON.stringify(SaveFile.contents)
+	var f := FileAccess.open(arg_path, FileAccess.WRITE)
+	f.store_string(json)
+	f.close()
+	
+	if Globals.DEBUGGING:
+		print("File path:", arg_path)
+		print("Argument: ", str(SaveFile.contents))
+	
+	var error = OS.execute(
+		exe_filepath,
+		["--notify_off", "--temp_filepath", arg_path],
+		output,
+		false,
+		false)
+
+	if error != OK:
+		push_error("Failed to launch notifier.exe, error: " + str(error))
+
+	if Globals.DEBUGGING: print("The output array is: ", output)
+	if Globals.DEBUGGING: print("Python completed execution")
+	
+	if output:
+		SaveFile.load_file()
+	else:
+		push_error("executable failed to provide output")
+		
+
 func create_userdata():
 	var src_dir = "res://" + USER_DIR_NAME + "/" 
 	var dst_dir = OS.get_user_data_dir() + "/" + USER_DIR_NAME + "/"
